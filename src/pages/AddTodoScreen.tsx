@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 const AddTodoScreen = () => {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>AddTodoScreen - Add TODO form will be here</Text>
+      <Text>AddTodoScreen </Text>
     </View>
   );
 };

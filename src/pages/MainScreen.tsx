@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 const MainScreen = () => {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>MainScreen - TODO List will be here</Text>
+      <Text>Main Screen</Text>
     </View>
   );
 };
