@@ -1,5 +1,12 @@
 import React, {useEffect, useState, useMemo} from 'react';
-import {View, Text, FlatList, Button, ActivityIndicator, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  Button,
+  ActivityIndicator,
+  StyleSheet,
+} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store';
 import {setTodos} from '../store/todoSlice';
@@ -8,13 +15,15 @@ import TodoItem from '../components/TodoItem';
 import FilterBar from '../components/FilterBar';
 import SortBar from '../components/SortBar';
 import {sortTodos, filterTodos, SortType, FilterType} from '../utils/todoUtils';
+import {useNavigation} from '@react-navigation/native';
 
-const MainScreen = ({navigation}: any) => {
+const MainScreen: React.FC = () => {
   const dispatch = useDispatch();
   const todos = useSelector((state: RootState) => state.todos.todos);
   const [loading, setLoading] = useState(false);
   const [sort, setSort] = useState<SortType>('recent');
   const [filter, setFilter] = useState<FilterType>('all');
+  const navigation = useNavigation();
 
   useEffect(() => {
     setLoading(true);
@@ -32,12 +41,17 @@ const MainScreen = ({navigation}: any) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>TODO List</Text>
-        <Button title="Add" onPress={() => navigation.navigate('AddTodo')} />
+        <Button
+          title="Add TODO"
+          onPress={() => navigation.navigate('AddTodo' as never)}
+          color="#000"
+        />
       </View>
       <FilterBar filter={filter} setFilter={setFilter} />
       <SortBar sort={sort} setSort={setSort} />
       <Text style={styles.counts}>
-        Total: {todos.length} | Completed: {todos.filter(t => t.completed).length}
+        Total: {todos.length} | Completed:{' '}
+        {todos.filter(t => t.completed).length}
       </Text>
       {loading ? (
         <ActivityIndicator size="large" />
@@ -54,7 +68,11 @@ const MainScreen = ({navigation}: any) => {
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: '#fff', padding: 16},
-  header: {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'},
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   title: {fontSize: 24, fontWeight: 'bold', color: '#000'},
   counts: {marginVertical: 8, color: '#000'},
 });
